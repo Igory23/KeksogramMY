@@ -1,4 +1,4 @@
 import './HTML_Template.js';
-import { createPhotoDiscription } from './setup.js';
+import './popup.js';
 
-console.log(createPhotoDiscription());
+// createPhotoDiscription();

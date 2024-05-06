@@ -1,7 +1,7 @@
 import { getRandomNumber, randomElementFromArray, uniqueValue } from './util.js';
 import { DISCRIPTION, MESSAGE, NAME_USER } from './data.js';
 
-let quantityComments = 2;
+
 const idPhotoNumber = uniqueValue(1, 25);
 const urlNumber = uniqueValue(1, 25);
 const idComments = uniqueValue(1, 1000);
@@ -24,6 +24,7 @@ let photoInformation = () => ({
 });
 
 // Создаем массив из скелета описания фотографий 
-let createPhotoDiscription = () => Array.from({ length: 10 }, photoInformation)
+let createPhotoDiscription = (count = 25) => Array.from({ length: count }, photoInformation);
+// console.log(createPhotoDiscription());
 
 export { createPhotoDiscription };
