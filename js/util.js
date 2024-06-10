@@ -81,4 +81,87 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const isEnterKey = (evt) => evt.key === 'Enter';
 
-export { getRandomNumber, randomElementFromArray, uniqueValue, getSliceLink, getPhotoData, isEscapeKey, isEnterKey };
+// проверка фокусирования в полях ввода при нажатии на ESC. Если фокус - отменить закрытие формы
+const isEnterKeyAndFocused = (evt) => {
+    return (evt.key === 'Escape' && 
+    !(document.activeElement.className === 'text__hashtags' ||
+    document.activeElement.className === 'text__description'))
+};
+
+const checkingLengthValue = (tags) => tags.length <= 5;
+
+const checkingTagsForUniqueness = (tags) => {
+    const lowerTags = tags.map((tag) => tag.toLowerCase());
+    return tags.length === new Set(lowerTags).size
+}
+
+const isVal = (tag) => {
+    const HASHTAG_RULE = /^#[a-za-яё0-9]{1,19}$/i;
+    return HASHTAG_RULE.test(tag)
+};
+
+//Проверяет валидность тегов 
+const isValAllTegs = (tags) => {
+
+    const finalArrTegs = tags.trim().split(' ').filter(tag => tag.trim());
+    
+    return checkingLengthValue(finalArrTegs) && 
+    checkingTagsForUniqueness(finalArrTegs) && 
+    finalArrTegs.every(isVal);
+};
+
+export {
+    getRandomNumber, randomElementFromArray,
+    uniqueValue, getSliceLink, getPhotoData, isEscapeKey, isEnterKey,
+    isEnterKeyAndFocused, isValAllTegs
+};
+
+// // проверят валидность строки
+// function hashtagValidator(text) {
+
+//     let returnResultFn = true;
+//     let uniquenessTag = null;
+//     const hashtagRule = /^#[a-za-яё0-9]{1,19}$/i;
+//     const readyArray = text.toLowerCase().split(' ');
+
+//     while (readyArray[readyArray.length - 1] === '') {
+//         readyArray.pop()
+//     }
+//     //прочитать как убрать все пробелы вконце строки и заменить фрагмент сверху 
+
+//     if (text == '') {
+//         console.log('валидно');
+//     } else if (readyArray.length <= 5) {
+//         returnResultFn = true;
+//         console.log('все хорошо')
+//         readyArray.forEach((value, index) => {
+            
+//             if (returnResultFn == true) {
+
+//                 for (let i = index + 1; i <= readyArray.length - 1; i++) {
+//                     if (value !== readyArray[i]) {
+//                         continue;
+//                     } else {
+//                         console.log('Повторяющийся тэг');
+//                         // pristine.addError(input, 'Повторяющийся тэг')
+//                         uniquenessTag = -1;
+//                         break;
+//                     }
+//                 }
+
+//                 const isValidHashtag = hashtagRule.test(value);
+
+//                 if (isValidHashtag && uniquenessTag !== -1) {
+//                     console.log('хэш валиден');
+//                 } else {
+//                     console.log('не валидно');
+//                     returnResultFn = false;
+//                 }
+//             }
+
+//         });
+
+//     } else returnResultFn = false;
+
+//     return returnResultFn;
+// }
