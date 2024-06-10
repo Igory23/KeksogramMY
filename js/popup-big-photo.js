@@ -14,6 +14,7 @@ const bigPictureClose = document.querySelector('.big-picture__cancel');
 // const bigPictureImg = document.querySelector('.big-picture__img img');
 // const LikesCount = photoInformation.querySelector('.likes-count');
 
+// функция с логикой отрисовки большой фотографии
 function openBigPicture(evt) {
 
     let documentFragmentForComments = document.createDocumentFragment();
@@ -51,23 +52,21 @@ function openBigPicture(evt) {
     // document.removeEventListener('keydown', onPopupEnterKeydown);
     bigPictureClose.addEventListener('click', closeBigPicture);
     document.addEventListener('keydown', onPopupEscKeydown);
+    pictures.removeEventListener('click', delegation)
 }
 
-pictures.addEventListener('click', (evt) => {
-    if (evt.target.nodeName === 'IMG') {
-        openBigPicture(evt);
-    }
-});
-
-function closeBigPicture() {
+// логика закрытия большой фотографии на крестик 
+const closeBigPicture = () => {
     socialComments.innerHTML = '';
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onPopupEscKeydown);
-    bigPictureClose.removeEventListener('click', onPopupEscKeydown);
+    bigPictureClose.removeEventListener('click', closeBigPicture);
+    pictures.addEventListener('click', delegation)
     // document.addEventListener('keydown', onPopupEnterKeydown);
 }
 
+// проверка нажатия на ESC
 const onPopupEscKeydown = (evt) => {
     if (isEscapeKey(evt)) {
         evt.preventDefault();
@@ -75,59 +74,11 @@ const onPopupEscKeydown = (evt) => {
     }
 };
 
-// const onPopupEnterKeydown = (evt) => {
-//     console.log(evt.target.querySelector('img'))
-//     if (isEnterKey(evt)) {
-//       evt.preventDefault();
-//       console.log(evt.target.querySelector('img').src)
-//       openBigPicture(evt.target.querySelector('img').src);
-//     }
-// };
+const delegation = (evt) => {
+    if (evt.target.nodeName === 'IMG') {
+        openBigPicture(evt);
+    }
+};
 
-// bigPictureClose.addEventListener('click', () => {
-//     closeBigPicture();
-// });
-
-// pictures.addEventListener('keydown', (evt) => {
-//     // if (isEnterKey(evt)) { 
-//         onPopupEnterKeydown(evt);
-//     // }
-// });
-
-// bigPictureClose.addEventListener('keydown', (evt) => {
-//     if (isEscapeKey(evt)) {
-//         onPopupEscKeydown(evt);
-//     }
-// });
-
-// const x1 = (photo) => {
-
-//     console.log(photo.url);
-//     bigPicture.querySelector('.big-picture__img img').src = photo.url;
-//     bigPicture.querySelector('.likes-count').textContent = photo.likes;
-//     bigPicture.querySelector('.comments-count').textContent = photo.comments.length;
-
-//     // return bigPicture;
-// };
-// // console.log(x1({url lickes: 'zzzz', comments: [1,2,3,4]}));
-// createPhotos.forEach((photo) => {
-
-//     x1(photo);
-
-// });
-
-// const x2 = ({ avatar, name, message }) => {
-
-//     const comment = document.createElement('li');
-//     comment.classList.add('social__comment');
-//     comment.innerHTML = `<img class="social__picture" 
-//     src="{{аватар}}" alt="{{имя комментатора}}" 
-//     width="35" height="35"> <p class="social__text">{{текст комментария}}</p>`;
-
-//     comment.querySelector('.social__picture').src = avatar;
-//     comment.querySelector('.social__picture').alt = name;
-//     comment.querySelector('.social__text').textContent = message;
-
-//     return comment;
-// };
-// console.log(x2())
+// делегиованный обработчик события на открытие большой фото
+pictures.addEventListener('click', delegation)

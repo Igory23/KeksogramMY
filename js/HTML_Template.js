@@ -5,6 +5,7 @@ const pictures = document.querySelector('.pictures');
 const createPhotos = createPhotoDiscription();
 const documentFragment = document.createDocumentFragment();
 
+// подставление моковых данных в шаблон и дальнейшая отрисовка на странице
 createPhotos.forEach(({ url, likes, comments }) => {
 
     const photoElement = photoTemplateContent.cloneNode(true);

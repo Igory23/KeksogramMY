@@ -210,11 +210,11 @@
 //             comment.querySelector('.social__text').textContent = message;
 
 //             documentFragmentForComments.appendChild(comment);
-           
+
 //         });
-        
+
 //         socialComments.appendChild(documentFragmentForComments);
-        
+
 
 //         // console.log(selectedImageData);
 //         // console.log(evt.target);
@@ -229,5 +229,91 @@
 //     socialComments.innerHTML = '';
 //     bigPicture.classList.add('hidden');
 //     body.classList.remove('modal-open');
-    
+
 // });
+// _________________________
+
+// form.addEventListener('submit', (evt) => {
+//     evt.preventDefault();
+//     const hashtag = /^#[a-za-яё0-9]{1,19}$/i;
+//     const isValidHashtag = hashtag.test(textHashtags.value);
+//     // const isValid = checkValidationFormEditPhoto.validate();
+
+//     if (textHashtags.value == '') {
+//         console.log('валидно')
+//     } else if (isValidHashtag) {
+//         console.log('хэш валиден')
+//     } else {
+//         console.log('не валидно')
+//         console.log(textHashtags.value)
+//     }
+
+// });
+
+// function hashtagValidator(text) {
+
+//     let returnResultFn = true;
+//     let uniquenessTag = null;
+//     const hashtagRule = /^#[a-za-яё0-9]{1,19}$/i;
+//     const readyArray = text.toLowerCase().split(' ');
+
+//     while (readyArray[readyArray.length - 1] === '') {
+//         readyArray.pop()
+//     }
+
+//     if (text == '') {
+//         console.log('валидно');
+//     } else if (readyArray.length <= 5) {
+//         readyArray.forEach((value, index) => {
+
+//             if (returnResultFn == true) {
+
+//                 for (let i = index + 1; i <= readyArray.length - 1; i++) {
+//                     if (value !== readyArray[i]) {
+//                         continue;
+//                     } else {
+//                         console.log('Повторяющийся тэг');
+//                         uniquenessTag = -1;
+//                         break;
+//                     }
+//                 }
+
+//                 const isValidHashtag = hashtagRule.test(value);
+
+//                 if (isValidHashtag && uniquenessTag !== -1) {
+//                     console.log('хэш валиден');
+//                 } else {
+//                     console.log('не валидно');
+//                     returnResultFn = false;
+//                 }
+//             }
+
+//         });
+
+//     } else returnResultFn = false
+
+//     return returnResultFn;
+// }
+
+const checkingLengthValue = (tags) => tags.length <= 5;
+
+const checkingTagsForUniqueness = (tags) => {
+    const lowerTags = tags.map((tag) => tag.toLowerCase());
+    return tags.length === new Set(lowerTags).size
+}
+
+const isVal = (tag) => {
+    const HASHTAG_RULE = /^#[a-za-яё0-9]{1,19}$/i;
+    return HASHTAG_RULE.test(tag)
+};
+
+const isValAllTegs = (tags) => {
+
+    const finalArrTegs = tags.trim().split(' ').filter(tag => tag.trim());
+
+    return checkingLengthValue(finalArrTegs) && 
+    checkingTagsForUniqueness(finalArrTegs) && 
+    finalArrTegs.every(isVal);
+};
+
+console.log(isValAllTegs('#ss #sss #s #zaaz #sfwrf #svsfb'))
