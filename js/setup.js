@@ -20,7 +20,7 @@ let photoInformation = () => ({
     url: `photos/${urlNumber.pop()}.jpg`,
     description: DISCRIPTION[getRandomNumber(0, DISCRIPTION.length - 1)],
     likes: getRandomNumber(15, 200),
-    comments: Array.from({ length: getRandomNumber(1, 4) }, functionComments),
+    comments: Array.from({ length: getRandomNumber(3, 10) }, functionComments),
 });
 
 // Создаем массив из скелета описания фотографий 

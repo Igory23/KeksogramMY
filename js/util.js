@@ -35,28 +35,7 @@ function uniqueValue(min = 1, max = 20) {
     return arrayNumber;
 }
 
-
-// функция обрезки строки 
-
-function getSliceLink(str = evt.target.querySelector('img'), src = 'http://localhost:3000/') {
-    let index = 0;
-    let finalStr = '';
-
-    while (true) {
-        index++;
-        if (src.charAt(index) !== str.charAt(index)) {
-            break;
-        } else {
-            continue;
-        }
-    }
-
-    finalStr = str.slice(index)
-    return finalStr;
-}
-
 // Находит нужный объект в массиве объектов по src значению
-
 function getPhotoData(arr, src) {
     let obj = 0;
 
@@ -112,7 +91,7 @@ const isValAllTegs = (tags) => {
 
 export {
     getRandomNumber, randomElementFromArray,
-    uniqueValue, getSliceLink, getPhotoData, isEscapeKey, isEnterKey,
+    uniqueValue, getPhotoData, isEscapeKey, isEnterKey,
     isEnterKeyAndFocused, isValAllTegs
 };
 

@@ -9,12 +9,12 @@ const body = document.querySelector('body');
 // функция загрузки фото
 const uploadPhotoFile = (evt) => {
     evt.preventDefault();
-    // const reader = new FileReader();
-    // reader.onload = function () {
-    //     imgUploadPreview.src = reader.result;
-    //     imgUploadPreview.style.display = 'block';
-    // }
-    // reader.readAsDataURL(evt.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = function () {
+        imgUploadPreview.src = reader.result;
+        imgUploadPreview.style.display = 'block';
+    }
+    reader.readAsDataURL(evt.target.files[0]);
     imgUploadOverlay.classList.remove('hidden');
     body.classList.add('modal-open');
     imgUploadCancel.addEventListener('click', closeForm);
@@ -26,7 +26,7 @@ const clouseFormEsc = (evt) => {
     if (isEnterKeyAndFocused(evt)) {
         evt.preventDefault();
         imgUploadOverlay.classList.add('hidden');
-        // imgUploadPreview.src = '';
+        imgUploadPreview.src = '';
         imgUploadInput.value = null;
         body.classList.remove('modal-open');
         imgUploadCancel.removeEventListener('click', closeForm);
@@ -37,7 +37,7 @@ const clouseFormEsc = (evt) => {
 // логика закрытия на крестик
 const closeForm = () => {
     imgUploadOverlay.classList.add('hidden');
-    // imgUploadPreview.src = '';
+    imgUploadPreview.src = '';
     imgUploadInput.value = null;
     body.classList.remove('modal-open');
     imgUploadCancel.removeEventListener('click', closeForm);
