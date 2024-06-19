@@ -1,5 +1,5 @@
 import { createPhotos } from './HTML_Template.js';
-import { getSliceLink, getPhotoData, isEscapeKey } from './util.js';
+import { getPhotoData, isEscapeKey } from './util.js';
 
 const body = document.querySelector('body');
 const pictures = document.querySelector('.pictures');
@@ -11,30 +11,26 @@ const socialCommentCount = photoInformation.querySelector('.social__comment-coun
 const socialComments = photoInformation.querySelector('.social__comments');
 const commentsCount = photoInformation.querySelector('.social__comment-count');
 const bigPictureClose = document.querySelector('.big-picture__cancel');
-// const bigPictureImg = document.querySelector('.big-picture__img img');
-// const LikesCount = photoInformation.querySelector('.likes-count');
+const commentsLoaderBtn = document.querySelector('.comments-loader');
+const socialCommentsLoader = document.querySelector('.social__comments-loader');
 
 // функция с логикой отрисовки большой фотографии
 function openBigPicture(evt) {
 
     let documentFragmentForComments = document.createDocumentFragment();
-    let finishedPhotoLink = getSliceLink(evt.target.src);
-    let selectedImageData = getPhotoData(createPhotos, finishedPhotoLink)
-
+    let finishedPhotoLink = evt.target.src.substring(22);
+    let selectedImageData = getPhotoData(createPhotos, finishedPhotoLink);
     bigPicture.classList.remove('hidden');
     body.classList.add('modal-open');
     bigPicture.querySelector('.big-picture__img img').src = finishedPhotoLink;
     socialCaption.textContent = selectedImageData.description;
     sociaLikes.textContent = selectedImageData.likes;
-    socialCommentCount.textContent = selectedImageData.comments.length;
-    // commentsCount.taxtContent = (selectedImageData.comments.length < 5) ? 
-    // selectedImageData.comments.length: '5';
-    // console.log(commentsCount);
 
-    selectedImageData.comments.forEach(({ avatar, name, message }) => {
+    selectedImageData.comments.forEach(({ avatar, name, message }, count) => {
 
+        count++;
         const comment = document.createElement('li');
-        comment.classList.add('social__comment');
+        (count >= 6) ? comment.classList.add('social__comment', 'hidden') : comment.classList.add('social__comment');
 
         comment.innerHTML = `<img class="social__picture" 
         src="{{аватар}}" alt="{{имя комментатора}}" 
@@ -49,11 +45,53 @@ function openBigPicture(evt) {
     });
 
     socialComments.appendChild(documentFragmentForComments);
-    // document.removeEventListener('keydown', onPopupEnterKeydown);
+
+    socialCommentCount.textContent = `${returnsLengthNumberShownComments()}` +
+    ' из ' + `${selectedImageData.comments.length}`;
+
+    if (selectedImageData.comments.length <= 5) {
+        socialCommentsLoader.classList.add('hidden');
+    } else {
+        commentsLoaderBtn.addEventListener('click', loadingMoreCommets);
+        socialCommentsLoader.classList.remove('hidden');
+    }
+
     bigPictureClose.addEventListener('click', closeBigPicture);
     document.addEventListener('keydown', onPopupEscKeydown);
     pictures.removeEventListener('click', delegation)
 }
+
+const returnsLengthNumberShownComments = () => {
+    const arrCommentsOne = [...socialComments.children];
+    const indexFirstHiddenElementOne = arrCommentsOne.findIndex(value => value.classList.contains('hidden'));
+
+    if (indexFirstHiddenElementOne === -1) {
+        return arrCommentsOne.length;
+    } else {
+        const arrHiddenElementsOne = arrCommentsOne.slice(0, indexFirstHiddenElementOne);
+        return arrHiddenElementsOne.length;
+    }
+};
+
+const loadingMoreCommets = () => {
+
+    const arrComments = [...socialComments.children];
+    const indexFirstHiddenElement = arrComments.findIndex(value => value.classList.contains('hidden'));
+    const arrHiddenElements = arrComments.slice(indexFirstHiddenElement);
+    const numberCommentsShow = (arrHiddenElements.length < 5) ? arrHiddenElements.length : 5;
+
+    for (let i = 0; i < numberCommentsShow; i++) {
+        arrHiddenElements[i].classList.remove('hidden');
+    }
+
+    socialCommentCount.textContent = `${returnsLengthNumberShownComments()}` + ' из ' + `${arrComments.length}`;
+
+    (socialComments.children[arrComments.length - 1].classList.contains != 'hidden') ?
+    socialCommentsLoader.classList.add('hidden') :
+    socialCommentsLoader.classList.remove('hidden');
+
+
+};
 
 // логика закрытия большой фотографии на крестик 
 const closeBigPicture = () => {
@@ -62,6 +100,7 @@ const closeBigPicture = () => {
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onPopupEscKeydown);
     bigPictureClose.removeEventListener('click', closeBigPicture);
+    commentsLoaderBtn.removeEventListener('click', loadingMoreCommets);
     pictures.addEventListener('click', delegation)
     // document.addEventListener('keydown', onPopupEnterKeydown);
 }

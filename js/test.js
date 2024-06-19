@@ -295,25 +295,105 @@
 //     return returnResultFn;
 // }
 
-const checkingLengthValue = (tags) => tags.length <= 5;
+// const checkingLengthValue = (tags) => tags.length <= 5;
 
-const checkingTagsForUniqueness = (tags) => {
-    const lowerTags = tags.map((tag) => tag.toLowerCase());
-    return tags.length === new Set(lowerTags).size
-}
+// const checkingTagsForUniqueness = (tags) => {
+//     const lowerTags = tags.map((tag) => tag.toLowerCase());
+//     return tags.length === new Set(lowerTags).size
+// }
 
-const isVal = (tag) => {
-    const HASHTAG_RULE = /^#[a-za-яё0-9]{1,19}$/i;
-    return HASHTAG_RULE.test(tag)
-};
+// const isVal = (tag) => {
+//     const HASHTAG_RULE = /^#[a-za-яё0-9]{1,19}$/i;
+//     return HASHTAG_RULE.test(tag)
+// };
 
-const isValAllTegs = (tags) => {
+// const isValAllTegs = (tags) => {
 
-    const finalArrTegs = tags.trim().split(' ').filter(tag => tag.trim());
+//     const finalArrTegs = tags.trim().split(' ').filter(tag => tag.trim());
 
-    return checkingLengthValue(finalArrTegs) && 
-    checkingTagsForUniqueness(finalArrTegs) && 
-    finalArrTegs.every(isVal);
-};
+//     return checkingLengthValue(finalArrTegs) && 
+//     checkingTagsForUniqueness(finalArrTegs) && 
+//     finalArrTegs.every(isVal);
+// };
 
-console.log(isValAllTegs('#ss #sss #s #zaaz #sfwrf #svsfb'))
+// console.log(isValAllTegs('#ss #sss #s #zaaz #sfwrf #svsfb'))
+
+// const x = 'http://localhost:3000/azazaz011';
+
+// console.log(x.substring(22))
+
+// function test (str1, str2) {
+
+//     let x = String(str1.toLocaleLowerCase().split('').sort().join(' '));
+//     let y = String(str2.toLocaleLowerCase().split('').sort().join(' '));
+
+//     if ( x == y ) {
+//         return true;
+//     } return false
+
+// }
+
+// console.log(test('раки', 'ирак')) // true
+// console.log(test('раки', 'поле')) // false
+// console.log(test('числа', 'силач')) // true
+// console.log(test('силач', 'числа')) // true
+// console.log(test('гора', 'РОГА')) // true
+// console.log(test('анин', 'фИна')) // true
+
+// const xx = String('dadafae'.split('').sort().join(''));
+// console.log(xx)
+
+// const morseСodeObj = {
+//     '·−': 'A', '−·−': 'К', '····': 'Х', '−···': 'Б', '·−··': 'Л', '−·−·': 'Ц', '·−−': 'В', '--': 'М',
+//     '−−−·': 'Ч', '−−·': 'Г', '−·': 'Н', '----': 'Ш', '−··': 'Д', '---': 'О', '−−·−': 'Щ', '·': 'Е',
+//     '·−−·': 'П', '−−·−−': 'Ъ', '·−·': 'Р', '−·−−': 'Ы', '···−': 'Ж', '···': 'С', '−··−': 'Ь',
+//     '−−··': 'З', '-': 'Т', '··−··': 'Э', '··': 'И', '··−': 'У', '··−−': 'Ю', '·−−−': 'Й', '··−·': 'Ф',
+//     '·−·−': 'Я',
+//     };
+
+// function xxx(obj) {
+
+//     return function decodeMorse(morseCode) {
+//         let carrent = '';
+//         let finish = '';
+//         let spaсeCounter = 0;
+
+//         for (let i = 0; i <= morseCode.length; i++) {
+
+//             if (i === morseCode.length) {
+
+//                 finish += obj[carrent];
+
+//             } else if (morseCode[i] === ' ' && (!spaсeCounter >= 1)) {
+
+//                 spaсeCounter++;
+//                 finish += obj[carrent];
+//                 carrent = '';
+//                 continue;
+
+//             } else if ((spaсeCounter === 1 || spaсeCounter === 2) && morseCode[i] === ' ') {
+
+//                 spaсeCounter++;
+//                 continue;
+
+//             } else if (spaсeCounter === 3) {
+
+//                 carrent += morseCode[i];
+//                 finish += ' ';
+//                 spaсeCounter = 0;
+
+//             } else if (morseCode[i] !== ' ') {
+
+//                 spaсeCounter = 0;
+//                 carrent += morseCode[i];
+
+//             }
+
+//         }
+//         return finish;
+//     }
+// }
+
+// const testing = xxx(morseСodeObj);
+
+// console.log(testing('−··· ·− −··· ·−   −· ·· −· ·−'));
