@@ -9,7 +9,7 @@ const socialCaption = photoInformation.querySelector('.social__caption');
 const sociaLikes = photoInformation.querySelector('.social__likes .likes-count');
 const socialCommentCount = photoInformation.querySelector('.social__comment-count .comments-count');
 const socialComments = photoInformation.querySelector('.social__comments');
-const commentsCount = photoInformation.querySelector('.social__comment-count');
+
 const bigPictureClose = document.querySelector('.big-picture__cancel');
 const commentsLoaderBtn = document.querySelector('.comments-loader');
 const socialCommentsLoader = document.querySelector('.social__comments-loader');
