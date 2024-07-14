@@ -397,3 +397,36 @@
 // const testing = xxx(morseСodeObj);
 
 // console.log(testing('−··· ·− −··· ·−   −· ·· −· ·−'));
+
+// function x() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             let name = 'IGOR'
+
+//             resolve(name);
+
+//         }, 2000);
+//     });
+// }
+
+// function z(name) {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             let secondName = name + ' MUSTYATS'
+
+//             resolve(secondName)
+//         }, 3000)
+//     });
+// }
+
+// function y() {
+//     x()
+//         .then((name) => {
+//             return z(name)
+//         })
+//         .then((i) => {
+//             console.log(i)
+//         });
+// }
+
+// y();

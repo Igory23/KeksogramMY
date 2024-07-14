@@ -2,15 +2,16 @@ import { isValAllTegs } from './util.js';
 
 const form = document.querySelector('.img-upload__form');
 const textHashtags = document.querySelector('.text__hashtags');
-const imgUploadSubmit = document.querySelector('.img-upload__submit')
+const imgUploadSubmit = document.querySelector('.img-upload__submit');
+
 
 
 // document.querySelector('.img-upload__overlay').classList.remove('hidden');
 
 // const checkValidationFormEditPhoto = new Pristine(form, {
-//     classTo: 'setup-form__element',
-//     errorTextParent: 'setup-form__element',
-//     errorTextClass: 'setup-form__error-text',
+//     classTo: 'img-upload__field-wrapper',
+//     errorTextParent: 'img-upload__field-wrapper',
+//     errorTextClass: 'img-upload__field-wrapper__error',
 // }, true);
 
 //проверка валидности формы редактирования фото
@@ -18,8 +19,8 @@ const imgUploadSubmit = document.querySelector('.img-upload__submit')
 //     evt.preventDefault();
 //     checkValidationFormEditPhoto.validate();
 //     // console.log(checkValidationFormEditPhoto.validate())
-//     // onFormSubmit();
-//     // isValAllTegs(textHashtags.value)
+//     onFormSubmit();
+//     isValAllTegs(textHashtags.value)
 
 // });
 
