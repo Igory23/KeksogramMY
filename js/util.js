@@ -36,7 +36,7 @@ function uniqueValue(min = 1, max = 20) {
 }
 
 // Находит нужный объект в массиве объектов по src значению
-function getPhotoData(arr, src) {
+function getPhotoDataFromArr(arr, src) {
     let obj = 0;
 
     for (let index = 0; index <= arr.length - 1; index++) {
@@ -89,58 +89,101 @@ const isValAllTegs = (tags) => {
     finalArrTegs.every(isVal);
 };
 
-export {
-    getRandomNumber, randomElementFromArray,
-    uniqueValue, getPhotoData, isEscapeKey, isEnterKey,
-    isEnterKeyAndFocused, isValAllTegs
+const showAlertOnSuccess = (template) => {
+
+    const templateOnSuccess = template.cloneNode(true);
+    templateOnSuccess.querySelector('.success').classList.add('alert');
+    const windowSuccess = templateOnSuccess.querySelector('.alert');
+    const successButton = templateOnSuccess.querySelector('.success__button');
+
+    document.body.appendChild(templateOnSuccess);
+
+    const removeAllEvt = () => {
+        document.removeEventListener('keydown', closeAlertSuccessOnEscKey);
+        successButton.removeEventListener('click', closeAlertSuccessBtn);
+        document.removeEventListener('click', clickedOutsideWindow);
+    };
+
+    const closeAlertSuccessBtn = () => {
+        windowSuccess.remove();
+        removeAllEvt();
+    };
+
+    const closeAlertSuccessOnEscKey = (evt) => {
+        if (isEscapeKey(evt) && windowSuccess) {
+            windowSuccess.remove();
+            removeAllEvt();
+        }
+    };
+
+    const clickedOutsideWindow = (evt) => {
+        if (evt.target.classList.contains('success') && windowSuccess) {
+            windowSuccess.remove();
+            removeAllEvt();
+        }
+    };
+
+    successButton.addEventListener('click', closeAlertSuccessBtn);
+    document.addEventListener('keydown', closeAlertSuccessOnEscKey);
+    document.addEventListener('click', clickedOutsideWindow);
+
+    setTimeout(() => {
+        if (windowSuccess) {
+            windowSuccess.remove();
+        }
+   
+    }, 3000);
 };
 
-// // проверят валидность строки
-// function hashtagValidator(text) {
+const showAlertOnReject = (template) => {
 
-//     let returnResultFn = true;
-//     let uniquenessTag = null;
-//     const hashtagRule = /^#[a-za-яё0-9]{1,19}$/i;
-//     const readyArray = text.toLowerCase().split(' ');
+    const templateOnReject = template.cloneNode(true);
+    templateOnReject.querySelector('.error').classList.add('rejected');
+    const windowRejected = templateOnReject.querySelector('.rejected');
+    const btnCloseWindowRejected = templateOnReject.querySelector('.error__button');
 
-//     while (readyArray[readyArray.length - 1] === '') {
-//         readyArray.pop()
-//     }
-//     //прочитать как убрать все пробелы вконце строки и заменить фрагмент сверху 
+    document.body.appendChild(templateOnReject);
 
-//     if (text == '') {
-//         console.log('валидно');
-//     } else if (readyArray.length <= 5) {
-//         returnResultFn = true;
-//         console.log('все хорошо')
-//         readyArray.forEach((value, index) => {
-            
-//             if (returnResultFn == true) {
+    const removeAllEvt = () => {
+        btnCloseWindowRejected.removeEventListener('click', closeAlertRejectedBtn);
+        document.removeEventListener('keydown', closeAlertRejectedOnEscKey);
+        document.removeEventListener('click', clickedOutsideWindow);
+    };
 
-//                 for (let i = index + 1; i <= readyArray.length - 1; i++) {
-//                     if (value !== readyArray[i]) {
-//                         continue;
-//                     } else {
-//                         console.log('Повторяющийся тэг');
-//                         // pristine.addError(input, 'Повторяющийся тэг')
-//                         uniquenessTag = -1;
-//                         break;
-//                     }
-//                 }
+    const closeAlertRejectedBtn = () => {
+        windowRejected.remove();
+        removeAllEvt();
+    };
 
-//                 const isValidHashtag = hashtagRule.test(value);
+    const closeAlertRejectedOnEscKey = (evt) => {
+        if (isEscapeKey(evt) && windowRejected) {
+            windowRejected.remove();
+            removeAllEvt();
+        }
+    };
 
-//                 if (isValidHashtag && uniquenessTag !== -1) {
-//                     console.log('хэш валиден');
-//                 } else {
-//                     console.log('не валидно');
-//                     returnResultFn = false;
-//                 }
-//             }
+    const clickedOutsideWindow = (evt) => {
+        if (evt.target.classList.contains('rejected') && windowRejected) {
+            windowRejected.remove();
+            removeAllEvt();
+        }
+    };
 
-//         });
+    btnCloseWindowRejected.addEventListener('click', closeAlertRejectedBtn);
+    document.addEventListener('keydown', closeAlertRejectedOnEscKey);
+    document.addEventListener('click', clickedOutsideWindow);
 
-//     } else returnResultFn = false;
+    setTimeout(() => {
+        if (windowRejected) {
+            windowRejected.remove();
+        }
+    }, 3000);
 
-//     return returnResultFn;
-// }
+};
+
+export {
+    getRandomNumber, randomElementFromArray,
+    uniqueValue, getPhotoDataFromArr, isEscapeKey, isEnterKey,
+    isEnterKeyAndFocused, isValAllTegs, showAlertOnSuccess,
+    showAlertOnReject,
+}

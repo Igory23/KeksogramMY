@@ -1,22 +1,30 @@
-import { createPhotoDiscription } from './setup.js';
+// import { createPhotoDiscription } from './setup.js';
 
 const photoTemplateContent = document.getElementById('picture').content;
 const pictures = document.querySelector('.pictures');
-const createPhotos = createPhotoDiscription();
-const documentFragment = document.createDocumentFragment();
 
 // подставление моковых данных в шаблон и дальнейшая отрисовка на странице
-createPhotos.forEach(({ url, likes, comments }) => {
+const photoRendering = (photoData) => {
 
-    const photoElement = photoTemplateContent.cloneNode(true);
+    const documentFragment = document.createDocumentFragment();
 
-    photoElement.querySelector('.picture__img').src = url;
-    photoElement.querySelector('.picture__comments').textContent = comments.length;
-    photoElement.querySelector('.picture__likes').textContent = likes;
+    photoData.forEach(({ url, likes, comments }) => {
 
-    documentFragment.appendChild(photoElement)
-});
+        const photoElement = photoTemplateContent.cloneNode(true);
 
-pictures.appendChild(documentFragment);
+        photoElement.querySelector('.picture__img').src = url;
+        photoElement.querySelector('.picture__comments').textContent = comments.length;
+        photoElement.querySelector('.picture__likes').textContent = likes;
 
-export { createPhotos };
+
+        documentFragment.appendChild(photoElement);
+    });
+
+    pictures.appendChild(documentFragment);
+
+};
+
+// photoRendering(createPhotos);
+
+
+export  { photoRendering };

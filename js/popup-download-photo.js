@@ -10,6 +10,10 @@ const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
 const effects = document.querySelector('.img-upload__effects');
 const slider = document.querySelector('.effect-level__slider');
+const textHashtags = document.querySelector('.text__hashtags');
+const textDescription = document.querySelector('.text__description');
+const pristineError = document.querySelector('.pristine-error');
+const imgUploadSubmit = document.querySelector('.img-upload__submit');
 
 imgUploadPreview.src = '';
 
@@ -36,7 +40,7 @@ const uploadPhotoFile = (evt) => {
 
 // функция закрытие формы редактирования фото на клавишу ESC
 const closeFormEsc = (evt) => {
-    if (isEnterKeyAndFocused(evt)) {
+    if (isEnterKeyAndFocused(evt) && document.body.querySelector('.rejected') == null) {
         evt.preventDefault();
         closeForm();
     }
@@ -45,6 +49,10 @@ const closeFormEsc = (evt) => {
 // логика закрытия на крестик
 const closeForm = () => {
     imgUploadOverlay.classList.add('hidden');
+    pristineError.textContent = '';
+    imgUploadSubmit.disabled = false;
+    textHashtags.value = '';
+    textDescription.value = '';
     imgUploadPreview.src = '';
     imgUploadInput.value = null;
     body.classList.remove('modal-open');
@@ -109,7 +117,7 @@ const setingsEffects = [
         min: 0,
         max: 100,
         step: 0.1,
-        unit: '',
+        unit: '%',
     },
     {
         name: 'marvin',
@@ -166,7 +174,7 @@ effects.addEventListener('change', () => {
 
         const sliderValue = slider.noUiSlider.get();
         imgUploadPreview.style.filter = `${selectedEffect.style}(${sliderValue}${selectedEffect.unit})`;
-        imgUploadPreview.classList.add(`effects__preview--${x.name}`);
+        imgUploadPreview.classList.add(`effects__preview--${selectedEffect.name}`);
         slider.value = sliderValue;
     }
 
@@ -183,3 +191,5 @@ noUiSlider.create(slider, {
     step: 1,
     connect: 'lower',
 });
+
+export { closeForm };
