@@ -1,15 +1,16 @@
 let photosDataArr;
 
-const getDataFromServer = (renderingFn) => {
+const getDataFromServer = (cb) => {
     fetch('https://27.javascript.htmlacademy.pro/kekstagram/data')
         .then(response => response.json())
         .then(photos => {
-            renderingFn(photos);
+            cb(photos);
             photosDataArr = photos;
         });
 };
 
-const sendData = (onSuccess, onFail, body, fnCloseForm) => {
+
+const sendData = (onSuccess, onFail, body) => {
     fetch(
         'https://27.javascript.htmlacademy.pro/kekstagram',
         {

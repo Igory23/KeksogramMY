@@ -135,4 +135,3 @@ const clickLike = () => {
 
 // делегиованный обработчик события на открытие большой фото
 pictures.addEventListener('click', delegation)
-

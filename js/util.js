@@ -181,9 +181,20 @@ const showAlertOnReject = (template) => {
 
 };
 
+function debounce (callback, timeoutDelay = 300) {
+
+    let timeoutId;
+
+    return (...rest) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+    };
+  
+}
+
 export {
     getRandomNumber, randomElementFromArray,
     uniqueValue, getPhotoDataFromArr, isEscapeKey, isEnterKey,
     isEnterKeyAndFocused, isValAllTegs, showAlertOnSuccess,
-    showAlertOnReject,
+    showAlertOnReject, debounce
 }
