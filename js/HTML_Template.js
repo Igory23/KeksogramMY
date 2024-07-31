@@ -1,9 +1,8 @@
 // import { createPhotoDiscription } from './setup.js';
-
+const filters = document.querySelector('.img-filters');
 const photoTemplateContent = document.getElementById('picture').content;
 const pictures = document.querySelector('.pictures');
 
-// подставление моковых данных в шаблон и дальнейшая отрисовка на странице
 const photoRendering = (photoData) => {
 
     const documentFragment = document.createDocumentFragment();
@@ -16,15 +15,13 @@ const photoRendering = (photoData) => {
         photoElement.querySelector('.picture__comments').textContent = comments.length;
         photoElement.querySelector('.picture__likes').textContent = likes;
 
-
         documentFragment.appendChild(photoElement);
     });
 
     pictures.appendChild(documentFragment);
-
+    filters.classList.remove('img-filters--inactive');
 };
 
 // photoRendering(createPhotos);
-
 
 export  { photoRendering };
