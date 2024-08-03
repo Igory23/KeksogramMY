@@ -18,13 +18,7 @@ const checkValidationFormEditPhoto = new Pristine(form, {
 });
 
 checkValidationFormEditPhoto.addValidator(textHashtags, function (value) {
-    if (isValAllTegs(value)) {
-        console.log('true')
-        isVal = true;
-    } else {
-        console.log('false')
-        isVal = false;
-    }
+    (isValAllTegs(value)) ?  isVal = true :  isVal = false;
 })
 
 const blockSubmitButton = () => {
@@ -37,7 +31,7 @@ const unblockSubmitButton = () => {
     imgUploadSubmit.textContent = 'Опубликовать';
 };
 
-// проверка валидности формы редактирования фото
+// проверка валидности формы редактирования фото и отправка данных
 const setUserFormSubmit = (fnCloseForm) => {
     form.addEventListener('submit', (evt) => {
 
