@@ -14,18 +14,29 @@ const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 const pristineError = document.querySelector('.pristine-error');
 const imgUploadSubmit = document.querySelector('.img-upload__submit');
+const fileChooser = document.querySelector('.img-upload__input')
+const preview = document.querySelector('.img-upload__preview img')
 
 imgUploadPreview.src = '';
+
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
+
+const loadingImg = () => {
+    const file = fileChooser.files[0];
+    const fileName = file.name.toLowerCase();
+    const determinePhotoFormat = FILE_TYPES.some( it => fileName.endsWith(it) )
+
+    if (determinePhotoFormat) {
+        preview.src = URL.createObjectURL(file)
+    }
+}
 
 // функция загрузки фото
 const uploadPhotoFile = (evt) => {
     evt.preventDefault();
-    const reader = new FileReader();
-    reader.onload = function () {
-        imgUploadPreview.src = reader.result;
-        imgUploadPreview.style.display = 'block';
-    }
-    reader.readAsDataURL(evt.target.files[0]);
+
+    loadingImg()
+
     imgUploadOverlay.classList.remove('hidden');
     body.classList.add('modal-open');
     scaleControlValue.value = '100%';
@@ -66,7 +77,7 @@ const closeForm = () => {
 };
 
 // обработчик изменения значения формы редактирования фото
-imgUploadInput.addEventListener('input', (evt) => {
+imgUploadInput.addEventListener('change', (evt) => {
 
     uploadPhotoFile(evt)
 
